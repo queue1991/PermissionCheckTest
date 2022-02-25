@@ -62,9 +62,16 @@ class MainActivity : AppCompatActivity() {
 
         when(requestCode){
             MULTIPLE_PERMISSIONS -> {
-                if (PackageManager.PERMISSION_GRANTED == grantResults.firstOrNull()) {
+                var deniedSize = 0
 
-                } else {
+                for(permission in permissions){
+                    for(permission in permissions){
+                        if(ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED)
+                            deniedSize++
+                    }
+                }
+
+                if (deniedSize > 0) {
                     startActivity(appSettings(this))
 
                     // 왜 세팅 페이지 들어가는지 설명 필요.
